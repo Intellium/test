@@ -1,0 +1,19 @@
+namespace: cert-manager
+helm:
+  chart: https://github.com/cert-manager/cert-manager/releases/download/v1.8.0/kubectl-cert_manager-linux-amd64.tar.gz
+targetCustomizations:
+- name: dev
+  helm:
+    values:
+      extraArgs:
+        - '--dns01-recursive-nameservers-only'
+        - '--dns01-recursive-nameservers=145.21.175.1:53,145.21.175.33:53'
+      installCRDs: true
+  clusterSelector:
+    matchLabels:
+      env: dev
+      deploy_cert-manager: true
+  yaml:
+    overlays:
+      - dev/clusterissuer.yml
+      - dev/certificate.yml

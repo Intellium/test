@@ -1,0 +1,25 @@
+apiVersion: cert-manager.io/v1
+kind: Certificate
+metadata:
+  name: dev-at-rws-nl-cert
+  namespace: cert-manager
+spec:
+  dnsNames:
+  - dev.at.rws.nl
+  - '*.dev.at.rws.nl'
+  duration: 2160h0m0s
+  issuerRef:
+    kind: ClusterIssuer
+    name: letsencrypt-production
+  privateKey:
+    algorithm: RSA
+    encoding: PKCS1
+    size: 4096
+  renewBefore: 360h0m0s
+  secretName: dev-at-rws-nl-tls
+  subject:
+    organizations:
+    - RWS
+  usages:
+  - server auth
+  - client auth

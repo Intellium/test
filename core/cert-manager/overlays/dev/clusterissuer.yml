@@ -1,0 +1,23 @@
+apiVersion: cert-manager.io/v1
+kind: ClusterIssuer
+metadata:
+  name: letsencrypt-production
+spec:
+  acme:
+    email: at@rws.nl
+    preferredChain: ""
+    privateKeySecretRef:
+      name: letsencrypt-production
+    server: https://acme-v02.api.letsencrypt.org/directory
+    solvers:
+    - dns01:
+        azureDNS:
+          clientID: 96c34890-b68b-42ba-929c-ef0dca075c50
+          clientSecretSecretRef:
+            name: azuredns-config
+            key: client-secret
+          subscriptionID: 859391bb-9920-4344-b5e6-682399a027e3
+          tenantID: ac843cea-7a2b-4dc6-9f37-919c3e210fed
+          resourceGroupName: rg-at-dns
+          hostedZoneName: dev.at.rws.nl
+          environment: AzurePublicCloud
